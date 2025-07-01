@@ -1,0 +1,21 @@
+import os
+
+# === GitHub Config ===
+GITHUB_REPO_URL = os.getenv("REPO_URL", "https://github.com/mi-org/mi-repo")
+GITHUB_FILE_PATH = os.getenv("EXCEL_PATH", "rules/rules.xlsx")
+GITHUB_BRANCH = os.getenv("REPO_BRANCH", "main")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+
+# === S3 Config ===
+S3_BUCKET_NAME = os.getenv("S3_BUCKET_NAME", "bucket-validaciones")
+S3_RULES_OBJECT_KEY = os.getenv(
+    "S3_RULES_OBJECT_KEY", "rules/rules_metadata.json")
+S3_KEY = os.getenv("RULES_KEY", "rules_metadata.json")
+
+S3_HASH_OBJECT_KEY = "rules/rules.hash"
+
+# === Regla por defecto ===
+DEFAULT_RULE_TYPE = os.getenv("RULE_TYPE", "semantica")
+
+# === Entorno ===
+IS_LAMBDA = bool(os.getenv("IS_LAMBDA"))

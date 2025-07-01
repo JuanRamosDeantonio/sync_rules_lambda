@@ -1,0 +1,33 @@
+{
+    // Activa y configura Pytest para el directorio de pruebas
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+
+    // Usa el entorno virtual local del proyecto
+    "python.pythonPath": ".venv/bin/python",
+
+    // Formateador de código profesional (Black)
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+
+    // Linting profesional (pylint puede cambiarse por flake8)
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--disable=C0114,C0115,C0116"  // Desactiva docstrings requeridos si deseas
+    ],
+
+    // Ordenamiento de imports automático
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+
+    // Auto-guardar archivos al perder foco
+    "files.autoSave": "onFocusChange",
+
+    // Tamaño estándar de tabulación
+    "editor.tabSize": 4
+}
