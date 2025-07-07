@@ -1,0 +1,34 @@
+﻿2025-07-03 16:54:37 [INFO] - INICIANDO: Preparacion del paquete Lambda
+2025-07-03 16:54:37 [INFO] - VALIDACION: .NET Framework disponible
+2025-07-03 16:54:37 [INFO] - LIMPIEZA: Limpiando carpetas si existen
+2025-07-03 16:54:37 [INFO] - SETUP: Creando carpetas de trabajo
+2025-07-03 16:54:37 [INFO] - DEPENDENCIAS: Instalando dependencias desde requirements.txt
+2025-07-03 16:54:37 [INFO] - DEPENDENCIAS: Ejecutando pip install
+2025-07-03 16:54:56 [INFO] - DEPENDENCIAS: Instalacion exitosa - Se detectaron 8 paquetes principales
+2025-07-03 16:54:56 [INFO] -   - boto3 instalado
+2025-07-03 16:54:56 [INFO] -   - boto3-1.39.3.dist-info instalado
+2025-07-03 16:54:56 [INFO] -   - openpyxl instalado
+2025-07-03 16:54:56 [INFO] -   - openpyxl-3.1.5.dist-info instalado
+2025-07-03 16:54:56 [INFO] -   - pydantic instalado
+2025-07-03 16:54:56 [INFO] -   - pydantic-1.10.22.dist-info instalado
+2025-07-03 16:54:56 [INFO] -   - requests instalado
+2025-07-03 16:54:56 [INFO] -   - requests-2.32.4.dist-info instalado
+2025-07-03 16:54:56 [INFO] - VERIFICACION: Total de 30 directorios de paquetes en build
+2025-07-03 16:54:56 [INFO] - COPIA: Copiando archivos fuente con exclusiones agresivas
+2025-07-03 16:54:59 [INFO] - COPIA: Se copiaron 13 archivos (0.04 MB), se excluyeron 12407
+2025-07-03 16:54:59 [INFO] - EXCLUSION: Se excluyeron 4607 archivos de entornos virtuales
+2025-07-03 16:54:59 [INFO] - OPTIMIZACION: Optimizando dependencias pesadas para AWS Lambda
+2025-07-03 16:54:59 [INFO] - OPTIMIZACION: Optimizado servicios de boto3
+2025-07-03 16:55:00 [INFO] - OPTIMIZACION: Optimizado servicios de botocore
+2025-07-03 16:55:01 [INFO] - OPTIMIZACION: Optimizacion de dependencias completada
+2025-07-03 16:55:01 [INFO] - CONTEO: Se empaquetaran 1196 archivos en total (post-optimizacion)
+2025-07-03 16:55:01 [INFO] - VERIFICACION: Se encontraron 494 archivos Python
+2025-07-03 16:55:01 [INFO] - COMPRESION: Empaquetando ZIP con compresion Optimal
+2025-07-03 16:55:08 [SUCCESS] - EXITO: ZIP creado en: C:\Proyectos\poc_popular\sync_rules_lambda\Publicar\sync_rules_lambda_20250703_165501.zip
+2025-07-03 16:55:08 [INFO] - VALIDACION: Validando integridad del ZIP
+2025-07-03 16:55:08 [SUCCESS] - EXITO: ZIP contiene 1196 entradas
+2025-07-03 16:55:08 [INFO] - TAMANO: ZIP final de 7.95 MB
+2025-07-03 16:55:08 [SUCCESS] - EXITO: ZIP de 7.95 MB - OK para carga directa en consola AWS
+2025-07-03 16:55:08 [INFO] - LIMPIEZA: Carpeta build eliminada
+2025-07-03 16:55:08 [INFO] - COMPLETADO: Paquete listo para AWS Lambda
+2025-07-03 16:55:08 [INFO] - UBICACION: C:\Proyectos\poc_popular\sync_rules_lambda\Publicar\sync_rules_lambda_20250703_165501.zip

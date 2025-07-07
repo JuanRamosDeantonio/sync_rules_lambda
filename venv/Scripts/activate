@@ -39,10 +39,10 @@ deactivate nondestructive
 if [ "${OSTYPE:-}" = "cygwin" ] || [ "${OSTYPE:-}" = "msys" ] ; then
     # transform D:\path\to\venv to /d/path/to/venv on MSYS
     # and to /cygdrive/d/path/to/venv on Cygwin
-    export VIRTUAL_ENV=$(cygpath "C:\Proyectos\Popular\Lambdas\sync_rules_lambda\venv")
+    export VIRTUAL_ENV=$(cygpath "C:\Proyectos\poc_popular\sync_rules_lambda\venv")
 else
     # use the path as-is
-    export VIRTUAL_ENV="C:\Proyectos\Popular\Lambdas\sync_rules_lambda\venv"
+    export VIRTUAL_ENV="C:\Proyectos\poc_popular\sync_rules_lambda\venv"
 fi
 
 _OLD_VIRTUAL_PATH="$PATH"

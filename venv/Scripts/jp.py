@@ -1,4 +1,4 @@
-#!C:\Proyectos\Popular\Lambdas\sync_rules_lambda\venv\Scripts\python.exe
+#!C:\Proyectos\poc_popular\sync_rules_lambda\venv\Scripts\python.exe
 
 import sys
 import json
