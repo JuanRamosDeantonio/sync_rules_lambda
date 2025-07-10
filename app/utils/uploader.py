@@ -2,7 +2,7 @@ import json
 import boto3
 from typing import List, Union
 from botocore.exceptions import ClientError
-from app.models.rule_data import RuleData
+#from app.models.rule_data import RuleData
 from app.utils.logger import get_logger
 from app import config
 
@@ -10,9 +10,9 @@ logger = get_logger("s3-uploader")
 
 
 def upload_rules_to_s3(
-    rules: Union[List[RuleData], List[dict]],
+    rules: Union[List[dict], List[dict]],
     bucket_name: str = config.S3_BUCKET_NAME,
-    key: str = config.S3_KEY
+    key: str = config.S3_RULES_OBJECT_KEY
 ) -> bool:
     """
     Sube una lista de reglas (RuleData o diccionarios) al bucket de S3 en formato JSON.
@@ -36,21 +36,23 @@ def upload_rules_to_s3(
 
     try:
         if config.IS_LAMBDA:
+            logger.info("Se está dentro de una lambda")
             s3 = boto3.client("s3")
         else:
+            logger.info("Se está probablemente en local")
             s3 = boto3.client(
                 "s3",
                 aws_access_key_id=config.AWS_ACCESS_KEY_ID,
                 aws_secret_access_key=config.AWS_SECRET_ACCESS_KEY,
-                aws_session_token=config.AWS_SESSION_TOKEN,
+                aws_session_token=None,
                 region_name=config.AWS_REGION,
             )
 
         # Serializar objetos RuleData si es necesario
-        if isinstance(rules[0], RuleData):
-            serialized = [r.dict() for r in rules]
-        else:
-            serialized = rules
+        #if isinstance(rules[0], RuleData):
+        #    serialized = [r.dict() for r in rules]
+        #else:
+        serialized = rules
 
         json_data = json.dumps(serialized, indent=2, ensure_ascii=False)
 

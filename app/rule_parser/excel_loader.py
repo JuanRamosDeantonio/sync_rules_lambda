@@ -4,7 +4,7 @@ from pathlib import Path
 from functools import wraps
 from openpyxl import load_workbook
 from openpyxl.worksheet.worksheet import Worksheet
-from app.models.rule_data import RuleData
+#from app.models.rule_data import RuleData
 from app.utils.logger import get_logger
 
 # Importar InvalidFileException de forma segura
@@ -14,7 +14,7 @@ except ImportError:
     # Para versiones más antiguas de openpyxl
     InvalidFileException = Exception
 
-logger = get_logger("excel-loader")
+logger = get_logger(__name__)
 
 
 class ExcelProcessingError(Exception):
@@ -66,7 +66,7 @@ EXCEL_FIELD_MAP = {
 REQUIRED_EXCEL_FIELDS = list(EXCEL_FIELD_MAP.keys())
 
 
-def load_rules_from_excel(excel_path: str, type_filter: str = "SEMANTICA") -> List[RuleData]:
+def load_rules_from_excel(excel_path: str, type_filter: str = "SEMANTICA") -> List[dict]:
     """
     Carga y filtra reglas de validación desde un archivo Excel (.xlsx) usando openpyxl.
 
@@ -110,7 +110,7 @@ def load_rules_from_excel(excel_path: str, type_filter: str = "SEMANTICA") -> Li
         logger.error(f"❌ {error_msg}")
         raise InvalidExcelFileError(error_msg, file_path=excel_path)
     
-    rules: List[RuleData] = []
+    rules: List[dict] = []
     wb = None
     
     try:
@@ -233,7 +233,7 @@ def load_rules_from_excel(excel_path: str, type_filter: str = "SEMANTICA") -> Li
     return rules
 
 
-def _process_worksheet(ws: Worksheet, sheet_name: str, type_filter: str) -> List[RuleData]:
+def _process_worksheet(ws: Worksheet, sheet_name: str, type_filter: str) -> List[dict]:
     """
     Procesa una hoja de Excel individual y extrae las reglas válidas.
 
@@ -249,7 +249,7 @@ def _process_worksheet(ws: Worksheet, sheet_name: str, type_filter: str) -> List
         HeaderNotFoundError: Si no se encuentra el encabezado requerido.
         MissingRequiredFieldsError: Si faltan campos requeridos en el encabezado.
     """
-    rules: List[RuleData] = []
+    rules: List[dict] = []
     
     # Obtener información básica de la hoja con manejo de errores
     try:
@@ -314,10 +314,12 @@ def _process_worksheet(ws: Worksheet, sheet_name: str, type_filter: str) -> List
 
         try:
             rule = _create_rule_from_row(row, mapped_headers, type_filter, sheet_name, row_idx)
+            logger.info(f"Regla creada desde la fila -> {rule}")
             if rule:
                 rules.append(rule)
                 valid_rules += 1
             else:
+                logger.info("En el otro caso del if si no hay reglas")
                 # Verificar si fue filtrado por tipo
                 row_dict = _create_row_dict(row, mapped_headers)
                 if not _matches_type_filter(row_dict, type_filter):
@@ -369,7 +371,7 @@ def _process_worksheet(ws: Worksheet, sheet_name: str, type_filter: str) -> List
 
 
 def _create_rule_from_row(row: tuple, mapped_headers: List[str], type_filter: str, 
-                         sheet_name: str, row_idx: int) -> Optional[RuleData]:
+                         sheet_name: str, row_idx: int) -> Optional[dict]:
     """
     Crea un objeto RuleData a partir de una fila de datos.
 
@@ -389,9 +391,13 @@ def _create_rule_from_row(row: tuple, mapped_headers: List[str], type_filter: st
     try:
         # Crear diccionario de datos de la fila
         row_dict = _create_row_dict(row, mapped_headers)
+
+        logger.info(f"Diccionario de regla: {row_dict}")
+        logger.info(f"El tipo del filtro {type_filter}")
         
         # Filtrar por tipo si está especificado
         if not _matches_type_filter(row_dict, type_filter):
+            logger.info("Desde el if que comprueba si esta especificado el tipo")
             logger.debug(
                 f"🔍 Regla filtrada por tipo en {sheet_name}, fila {row_idx}",
                 extra={
@@ -405,8 +411,14 @@ def _create_rule_from_row(row: tuple, mapped_headers: List[str], type_filter: st
             return None
 
         # Crear y validar objeto RuleData
+        logger.info("Desde fuera de la comprobacion de tipo")
         try:
-            rule = RuleData(**row_dict)
+            logger.info(f"Dentro de try para crear la rule {row_dict}")
+            rule = {"id": f"{row_dict['id']}",
+             "description": f"{row_dict['description']}",
+             "type": f"{row_dict['type']}",
+             "criticality": f"{row_dict['criticality']}"}
+            
         except TypeError as e:
             # Error de tipos en los parámetros del constructor
             raise RuleValidationError(
@@ -433,12 +445,12 @@ def _create_rule_from_row(row: tuple, mapped_headers: List[str], type_filter: st
             ) from e
         
         logger.debug(
-            f"✅ Regla válida creada: {rule.id}",
+            f"✅ Regla válida creada: {rule['id']}",
             extra={
                 "sheet_name": sheet_name,
                 "row_number": row_idx,
-                "rule_id": rule.id,
-                "rule_type": rule.type,
+                "rule_id": rule["id"],
+                "rule_type": rule["type"],
                 "criticality": getattr(rule, 'criticality', 'N/A')
             }
         )
