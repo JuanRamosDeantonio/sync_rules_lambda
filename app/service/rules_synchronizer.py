@@ -443,7 +443,7 @@ class RulesSynchronizer:
             Solo las reglas que coincidan con este tipo serán incluidas.
         """
         try:
-            rules = load_rules_from_excel(file_path, type_filter=self.rule_type)
+            rules = load_rules_from_excel(file_path)
             
             self.logger.info("Reglas procesadas exitosamente", 
                            total_reglas=len(rules), 
