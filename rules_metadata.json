@@ -1,0 +1,245 @@
+[
+  {
+    "id": "1.1",
+    "documentation": "Documento Especificacion",
+    "description": "Validar que por cada archivo \".yaml\" en la ruta \"Yaml\", exista un documento correspondiente en la ruta \"Documentación/Especificación\" cuyo nombre comience con \"BPOP2\". La cantidad de documentos BPOP2 debe coincidir exactamente con la cantidad de archivos YAML",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "1.2",
+    "documentation": "Documento Mecanismos",
+    "description": "En la ruta \"Documentación/Mecanismos\" debe existir al menos un documento cuyo nombre comience con \"BPOP3\"",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "1.3",
+    "documentation": "Documento Diseño detallado",
+    "description": "En la ruta \"Documentación/Diseño detallado\" deben existir documentos con formato:\n\"BPOP9 - DiseñoDetallado [NOMBRE_CARPETA]\". Donde [NOMBRE_CARPETA] debe coincidir exactamente con cada nombre de carpeta de primer nivel en \"Guion/\". El número total de documentos debe igualar el número total de carpetas en \"Guion/\".",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "1.4",
+    "documentation": "Documento Guion de Instalación",
+    "description": "Dentro de cada carpeta hija en \"Guion/\" debe existir un documento con formato:\n\"BPOP8 - Guion Instalacion [NOMBRE_CARPETA]\". Donde [NOMBRE_CARPETA] debe coincidir exactamente con el nombre de la carpeta que lo contiene.",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "1.5",
+    "documentation": "Documento Reporte de pruebas",
+    "description": "En la ruta \"Pruebas/\" debe haber un documento cuyo nombre comience con \"BPOP4\" por cada archivo \".yaml\" en la ruta \"YAML\"",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "1.7",
+    "documentation": "Archivo Configuración",
+    "description": "Para cada carpeta hija de primer nivel en \"Guion/\", debe existir la ruta \"Guion/[NOMBRE_CARPETA]/Config\" conteniendo al menos un archivo con extensión .xml o .yaml",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "1.8",
+    "documentation": "DB",
+    "description": "En la carpeta \"Guion/[NOMBRE_CARPETA]/DB\" debe existir un script de base de datos.",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "ALTA",
+    "explanation": null
+  },
+  {
+    "id": "1.9",
+    "documentation": "Fuentes",
+    "description": "Cada carpeta hija de primer nivel en \"Guion/\" debe tener una carpeta correspondiente con el mismo nombre en \"Fuentes/\"",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "1.10",
+    "documentation": "MQ",
+    "description": "En cada ruta \"Guion/[NOMBRE_CARPETA]/MQ\" debe existir al menos un archivo con extensión .mq, donde [NOMBRE_CARPETA] representa cada carpeta hija de primer nivel en \"Guion/\"",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "1.11",
+    "documentation": "Contrato (WSLD, Swagger)",
+    "description": "Debe haber al menos un archivo en la ruta Yaml/ con la extensión .yaml",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "1.12",
+    "documentation": "Proyecto SOAP con los respectivos escenarios",
+    "description": "Debe haber al menos un archivo en la ruta Pruebas/ con la extensión .xml, ó .json, ó .txt",
+    "references": null,
+    "type": "SEMANTICA",
+    "criticality": "MEDIA",
+    "explanation": null
+  },
+  {
+    "id": "2.2",
+    "documentation": "Documento Especificacion[Portada]",
+    "description": "En la portada del documento debe aparecer el nombre del servicio y la fecha de creación en formato dd/mm/yyyy",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.3",
+    "documentation": "Documento Especificacion[Control de Versiones]",
+    "description": "El documento debe contener una tabla de control de versiones con cinco columnas: Versión, Tipo de cambio (C, M, A, E), Fecha, Descripción de cambios y Responsable del cambio",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.4",
+    "documentation": "Documento Especificacion[Cuadro informacion General]",
+    "description": "En la sección \"1.1 Información General\" debe existir una tabla \"Información Servicio\" con dos columnas. La primera columna debe contener: Nombre Servicio, Nombre Técnico, Operaciones del Servicio, Dominio del Servicio, Proyecto, Consumidor (Frontend) y Proveedor (Backend). La segunda columna debe tener los valores correspondientes (no pueden estar vacíos)",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.5",
+    "documentation": "Documento Especificacion[Descripcion]",
+    "description": "En la sección \"2. Descripción del Servicio\" debe existir un texto que describa el servicio.",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.9",
+    "documentation": "Documento Especificacion[Descripcion Mensajes]",
+    "description": "En las secciones \"3.1.1. Descripción Mensaje De Entrada\" y \"3.1.3. Descripción Mensaje De Salida\" deben incluirse tablas que describan los mensajes de entrada y salida del servicio, respectivamente, y ninguno de sus campos puede estar vacío",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.10",
+    "documentation": "Documento Especificacion[Mensajes de ejemplo]",
+    "description": "En las secciones \"3.1.2. Ejemplo Mensaje de Entrada\", \"3.1.4. Ejemplo Mensaje de Respuesta Exitosa\" y \"3.1.5. Ejemplo Mensaje de Respuesta Error\" deben incluirse ejemplos válidos de mensajes de entrada y respuesta para el servicio",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.11",
+    "documentation": "Documento Especificacion[Códigos IFX de respuesta y error]",
+    "description": "En la sección \"4. Códigos IFX de respuesta y error para el campo StatusCode\" debe incluirse una tabla con tres columnas tituladas \"Código\", \"Severidad\" y \"Descripción\", donde ninguna celda puede estar vacía y el contenido debe ser válido",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.12",
+    "documentation": "Documento Especificacion[Mensajes de ejemplo]",
+    "description": "En la sección \"5. Códigos HTTP de respuesta\" debe incluirse una tabla con dos columnas tituladas \"Código\" y \"Descripción\", en la que se describan los códigos de respuesta HTTP que puede devolver el servicio",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.13",
+    "documentation": "Documento Especificacion[Mecanismos de comunicación]",
+    "description": "En la sección \"6. Mecanismos de comunicación\" debe incluirse una tabla con dos columnas tituladas \"Destino\" y \"Descripción\", que no puede estar vacía",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.14",
+    "documentation": "Documento Especificacion[Contextos Exposición Servicio]",
+    "description": "En la sección \"7. Contextos Exposición Servicio\" debe incluirse una tabla con 3 columnas tituladas \"Consumidores\", \"Contexto\" y \"Protocolo\", que no puede estar vacía",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "2.15",
+    "documentation": "Documento Especificacion[Contextos Exposición Servicio]",
+    "description": "En la sección \"8. Reglas\" debe incluirse una tabla con 2 columnas tituladas \"Regla\" y \"Descripción\", que no puede estar vacía",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Especificación/BPOP2*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 1
+  },
+  {
+    "id": "3.2",
+    "documentation": "Mecanismos[Presentación]",
+    "description": "En la hoja de \"Presentación\" debe incluirse el nombre del servicio",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Mecanismos/BPOP3*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 2
+  },
+  {
+    "id": "3.3",
+    "documentation": "Mecanismos[Control de versiones]",
+    "description": "En la hoja \"Presentación\" debe incluirse una tabla con 5 columnas tituladas \"Versión\", \"Tipo de Cambio\", \"Descripción de Cambios\", \"Autor\" y \"Fecha\", que registre los cambios realizados al documento.",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Mecanismos/BPOP3*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 2
+  },
+  {
+    "id": "3.4",
+    "documentation": "Mecanismos[Especificación técnica]",
+    "description": "En la hoja \"Especificación Técnica\" debe incluirse una tabla con 8 columnas tituladas \"No.\", \"Mensajes de Entrada | Salida\", \"Nombre Servicio\", \"Descripción Interfaz\", \"Canal\", \"Proveedor\", \"Nombre Operación\" y \"Dominio\", cuyos registros no deben estar vacíos y deben ser válidos",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Mecanismos/BPOP3*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 2
+  },
+  {
+    "id": "3.5",
+    "documentation": "Mecanismos[Especificación técnica]",
+    "description": "En la hoja \"Especificación Técnica\" debe incluirse una tabla titulada \"2. Información del Legado\" con 3 columnas: la primera con las categorías \"Detalles Operación\" y \"Destino Transacción\", la segunda con los campos \"Servicio\", \"Operación\", \"Mensaje de Entrada\", \"Mensaje de Salida\", \"Entidad\", \"Plataforma\", \"Protocolo\", \"Formato\" y \"Modelo Consumo\", y la tercera con los valores correspondientes",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Mecanismos/BPOP3*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 2
+  },
+  {
+    "id": "3.6",
+    "documentation": "Mecanismos[Especificación técnica]",
+    "description": "En la hoja \"Especificación Técnica\" debe incluirse una tabla de 3 columnas con el encabezado \"Contexto Exposición\" que contenga los campos \"Contexto\", \"Seguridad\", \"Nombre MPG/WSP\", \"Internal/External\" y \"Contrato (WSDL/Swagger)\" con sus respectivos valores",
+    "references": "SrvBillAgreementStandardPaymentREST/Documentacion/Mecanismos/BPOP3*",
+    "type": "CONTENIDO",
+    "criticality": "ALTA",
+    "explanation": 2
+  }
+]
