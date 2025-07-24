@@ -34,8 +34,9 @@ from typing import List, Dict, Optional
 from dataclasses import dataclass
 from contextlib import contextmanager
 
-from app.utils.github_downloader import download_excel_from_github
-from app.rule_parser.excel_loader import load_rules_from_excel
+from app.models.rule_data import RuleData
+from app.utils.github_downloader import download_json_from_github
+from app.rule_parser.loader import load_rules_from_json
 from app.utils.uploader import upload_rules_to_s3
 from app.utils.hash_utils import (
     calculate_file_hash,
@@ -260,10 +261,10 @@ class RulesSynchronizer:
                 self.logger.info("Iniciando sincronización de reglas desde GitHub")
                 
                 # Paso 1: Descargar Excel desde GitHub
-                excel_path = self._download_excel_file()
+                json_path = self._download_json_file()
                 
                 # Paso 2: Verificar si el archivo ha cambiado
-                if not self._has_file_changed(excel_path):
+                if not self._has_file_changed(json_path):
                     return self._create_result(
                         success=True,
                         rules_count=0,
@@ -272,7 +273,7 @@ class RulesSynchronizer:
                     )
                 
                 # Paso 3: Procesar y filtrar reglas
-                rules = self._process_rules(excel_path)
+                rules = self._process_rules(json_path)
                 if not rules:
                     return self._create_result(
                         success=False,
@@ -335,9 +336,9 @@ class RulesSynchronizer:
         
         return result
     
-    def _download_excel_file(self) -> str:
+    def _download_json_file(self) -> str:
         """
-        Descarga el archivo Excel desde el repositorio GitHub configurado.
+        Descarga el archivo JSON desde el repositorio GitHub configurado.
         
         Utiliza las credenciales y configuración del módulo config para
         autenticarse y descargar el archivo especificado desde GitHub.
@@ -354,12 +355,12 @@ class RulesSynchronizer:
             limpiado automáticamente al finalizar la ejecución.
         """
         try:
-            self.logger.info("Iniciando descarga de Excel desde GitHub",
-                           url_repositorio=config.GITHUB_REPO_URL,
-                           ruta_archivo=config.GITHUB_FILE_PATH,
-                           rama=config.GITHUB_BRANCH)
+            self.logger.info("Iniciando descarga de JSON desde GitHub",
+                        url_repositorio=config.GITHUB_REPO_URL,
+                        ruta_archivo=config.GITHUB_FILE_PATH,
+                        rama=config.GITHUB_BRANCH)
             
-            file_path = download_excel_from_github(
+            file_path = download_json_from_github(
                 repo_url=config.GITHUB_REPO_URL,
                 file_path=config.GITHUB_FILE_PATH,
                 branch=config.GITHUB_BRANCH,
@@ -370,14 +371,14 @@ class RulesSynchronizer:
                 raise FileNotFoundError(f"Archivo descargado no encontrado: {file_path}")
                 
             file_size = os.path.getsize(file_path)
-            self.logger.info("Archivo Excel descargado exitosamente", 
-                           ruta_archivo=file_path, 
-                           tamaño_bytes=file_size)
+            self.logger.info("Archivo JSON descargado exitosamente", 
+                        ruta_archivo=file_path, 
+                        tamaño_bytes=file_size)
             
             return file_path
             
         except Exception as e:
-            self.logger.error("Falló la descarga del archivo Excel", 
+            self.logger.error("Falló la descarga del archivo JSON", 
                             tipo_error=type(e).__name__,
                             mensaje_error=str(e))
             raise
@@ -420,7 +421,7 @@ class RulesSynchronizer:
                               tipo_error=type(e).__name__)
             return True
     
-    def _process_rules(self, file_path: str) -> List[Dict]:
+    def _process_rules(self, file_path: str) -> List[RuleData]:
         """
         Procesa y filtra las reglas desde el archivo Excel.
         
@@ -443,7 +444,7 @@ class RulesSynchronizer:
             Solo las reglas que coincidan con este tipo serán incluidas.
         """
         try:
-            rules = load_rules_from_excel(file_path)
+            rules = load_rules_from_json(file_path)
             
             self.logger.info("Reglas procesadas exitosamente", 
                            total_reglas=len(rules), 
@@ -456,7 +457,7 @@ class RulesSynchronizer:
                             tipo_error=type(e).__name__)
             raise
     
-    def _upload_rules_to_s3(self, rules: List[Dict]) -> bool:
+    def _upload_rules_to_s3(self, rules: List[RuleData]) -> bool:
         """
         Sube las reglas procesadas al bucket S3 configurado.
         
@@ -464,7 +465,7 @@ class RulesSynchronizer:
         métricas sobre el tamaño de los datos y el éxito de la operación.
         
         Args:
-            rules (List[Dict]): Lista de reglas a subir a S3.
+            rules (List[RuleData]): Lista de reglas a subir a S3.
         
         Returns:
             bool: True si la subida fue exitosa, False en caso contrario.
@@ -474,14 +475,16 @@ class RulesSynchronizer:
             y manejo de errores para facilitar el debugging.
         """
         try:
-            data_size = len(json.dumps(rules, ensure_ascii=False))
+            # Convertir objetos RuleData a diccionarios para serialización
+            rules_dict = [rule.model_dump() for rule in rules]
+            data_size = len(json.dumps(rules_dict, ensure_ascii=False))
             
-            success = upload_rules_to_s3(rules)
+            success = upload_rules_to_s3(rules_dict)
             
             if success:
                 self.logger.info("Reglas subidas exitosamente a S3", 
-                               cantidad_reglas=len(rules), 
-                               tamaño_datos_bytes=data_size)
+                            cantidad_reglas=len(rules), 
+                            tamaño_datos_bytes=data_size)
             else:
                 self.logger.error("Falló la subida de reglas a S3")
             
@@ -490,8 +493,8 @@ class RulesSynchronizer:
         except Exception as e:
             self.logger.error("Excepción durante subida a S3", 
                             tipo_error=type(e).__name__)
-            return False 
-    
+            return False
+        
     @contextmanager
     def _managed_temp_file(self):
         """

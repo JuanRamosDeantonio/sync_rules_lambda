@@ -5,9 +5,9 @@ from app.utils.logger import get_logger
 logger = get_logger(__name__)
 
 
-def download_excel_from_github(repo_url: str, file_path: str, branch: str = "main", token: str = None) -> str:
+def download_json_from_github(repo_url: str, file_path: str, branch: str = "main", token: str = None) -> str:
     """
-    Descarga un archivo Excel (.xlsx) desde un repositorio de GitHub usando su URL cruda.
+    Descarga un archivo JSON (.json) desde un repositorio de GitHub usando su URL cruda.
 
     Esta función construye la URL de descarga directa del archivo alojado en GitHub,
     realiza la solicitud HTTP (autenticada si se proporciona token), guarda el archivo localmente,
@@ -16,12 +16,12 @@ def download_excel_from_github(repo_url: str, file_path: str, branch: str = "mai
     Args:
         repo_url (str): URL del repositorio GitHub (sin ".git").
                         Ejemplo: "https://github.com/org/repo"
-        file_path (str): Ruta del archivo Excel dentro del repo. Ej: "carpeta/rules.xlsx"
+        file_path (str): Ruta del archivo JSON dentro del repo. Ej: "carpeta/rules.json"
         branch (str, optional): Rama del repositorio a usar. Por defecto "main".
         token (str, optional): Token de acceso personal (PAT) para repositorios privados.
 
     Returns:
-        str: Ruta local al archivo Excel descargado, en /tmp/ si está en AWS Lambda, o local si no.
+        str: Ruta local al archivo JSON descargado, en /tmp/ si está en AWS Lambda, o local si no.
 
     Raises:
         ValueError: Si la URL del repositorio no es válida.
@@ -53,14 +53,19 @@ def download_excel_from_github(repo_url: str, file_path: str, branch: str = "mai
             f"No se pudo descargar el archivo: {response.status_code} - {response.reason}")
 
     content_type = response.headers.get("Content-Type", "")
-    if "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" not in content_type:
+    if "application/json" not in content_type and "text/plain" not in content_type:
         logger.warning(
-            f"Advertencia: El archivo descargado no parece ser un Excel válido. Content-Type: {content_type}")
+            f"Advertencia: El archivo descargado no parece ser un JSON válido. Content-Type: {content_type}")
 
-    local_path = "/tmp/rules.xlsx" if os.getenv(
-        "AWS_EXECUTION_ENV") else "rules.xlsx"
+    # Extraer el nombre del archivo desde file_path para usar como nombre local
+    file_name = os.path.basename(file_path)
+    if not file_name.endswith('.json'):
+        file_name += '.json'
+    
+    local_path = f"/tmp/{file_name}" if os.getenv("AWS_EXECUTION_ENV") else file_name
+    
     with open(local_path, "wb") as f:
         f.write(response.content)
 
-    logger.info(f"Archivo Excel guardado exitosamente en: {local_path}")
+    logger.info(f"Archivo JSON guardado exitosamente en: {local_path}")
     return local_path

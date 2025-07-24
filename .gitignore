@@ -1,23 +1,301 @@
-# Byte-compiled / optimized / DLL files
+# .gitignore para Source Code Lambda Project
+# ===========================================
+
+# ========================================
+# ARCHIVOS SENSIBLES Y CREDENCIALES
+# ========================================
+
+*.env
+.env.*
+config.json
+secrets.json
+credentials.json
+
+test_events/
+events/
+*_event.json
+*_config.json
+
+*.log
+logs/
+debug.log
+error.log
+
+local_config.py
+dev_settings.py
+
+# ========================================
+# PYTHON Y VIRTUAL ENVIRONMENTS
+# ========================================
+
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Virtual environment
-venv/
+*.so
 
-# VS Code settings
-.vscode/
-
-# Distribution / packaging
+.Python
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-# Logs
-*.log
+*.manifest
+*.spec
 
-# Environment variables
-.env
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+lambda_env/
+source_code_env/
 
-Publicar/
+Pipfile.lock
+poetry.lock
+
+# ========================================
+# AWS Y DEPLOYMENT
+# ========================================
+
+*.zip
+source_code_lambda.zip
+deployment_package.zip
+lambda_deployment.zip
+
+.aws-sam/
+samconfig.toml
+
+.serverless/
+serverless.yml.backup
+
+cdk.out/
+*.d.ts
+node_modules/
+
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
+
+cloudformation-template.json
+cloudformation-template.yaml
+
+# ========================================
+# TESTING Y DESARROLLO
+# ========================================
+
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.cache
+pytest.ini
+.testmondata
+
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+.ipynb_checkpoints
+*.ipynb
+
+test_output/
+test_results/
+test_downloads/
+
+mock_data/
+sample_data/
+test_repos/
+
+# ========================================
+# IDEs Y EDITORES
+# ========================================
+
+.vscode/
+*.code-workspace
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+*.sublime-project
+*.sublime-workspace
+
+*.swp
+*.swo
+*~
+
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.#*
+
+# ========================================
+# SISTEMA OPERATIVO
+# ========================================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ========================================
+# ARCHIVOS TEMPORALES Y CACHE
+# ========================================
+
+*.tmp
+*.temp
+temp/
+tmp/
+
+.cache/
+cache/
+*.cache
+
+*.bak
+*.backup
+*~
+
+# ========================================
+# ESPECÍFICOS DEL PROYECTO
+# ========================================
+
+downloads/
+downloaded_files/
+test_downloads/
+
+structure_output.md
+structure_output.json
+
+debug_output/
+debug_files/
+
+performance.log
+metrics.log
+
+local_test_output/
+local_downloads/
+
+# Carpeta de publicación (no se debe versionar)
+publicar/
+
+# ========================================
+# DOCUMENTACIÓN Y ASSETS
+# ========================================
+
+docs/_build/
+docs/build/
+site/
+
+docs/_build/
+
+assets/temp/
+images/temp/
+
+# ========================================
+# NETWORKING Y DESARROLLO
+# ========================================
+
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+
+# ========================================
+# MONITOREO Y ANALYTICS
+# ========================================
+
+monitoring/
+grafana/
+prometheus/
+
+analytics.json
+usage_stats.json
+
+# ========================================
+# ARCHIVOS DE CONFIGURACIÓN OPCIONALES
+# ========================================
+
+.pre-commit-config.yaml
+
+# Docker (si usas contenedores para testing)
+Dockerfile.local
+docker-compose.override.yml
+
+# ========================================
+# NOTAS IMPORTANTES
+# ========================================
+
+# README: Asegúrate de nunca commitear:
+# 1. Tokens de APIs (GitHub, GitLab, Azure, etc.)
+# 2. Credenciales de repositorios
+# 3. Archivos de configuración con datos sensibles
+# 4. Logs que puedan contener información privada
+# 5. Archivos temporales de testing con datos reales
+
+# EJEMPLO de archivo que SÍ debes commitear:
+# test_events/github_structure_template.json (sin token real)
+
+# EJEMPLO de archivo que NO debes commitear:
+# test_events/github_structure_real.json (con token real)

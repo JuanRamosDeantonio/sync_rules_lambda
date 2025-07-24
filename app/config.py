@@ -2,7 +2,7 @@ import os
 
 # === GitHub Config ===
 GITHUB_REPO_URL = os.getenv("REPO_URL", "https://github.com/mi-org/mi-repo")
-GITHUB_FILE_PATH = os.getenv("EXCEL_PATH", "rules/rules.xlsx")
+GITHUB_FILE_PATH = os.getenv("GITHUB_PATH", "rules/rules.xlsx")
 GITHUB_BRANCH = os.getenv("REPO_BRANCH", "main")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 

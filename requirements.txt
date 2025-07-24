@@ -1,5 +1,4 @@
 boto3==1.37.4
 botocore==1.37.4
-openpyxl==3.1.5
 pydantic==2.11.7
 Requests==2.32.4

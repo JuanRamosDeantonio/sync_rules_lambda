@@ -10,10 +10,13 @@ class RuleData(BaseModel):
     id: str = Field(..., description="Identificador único de la regla.")
     description: str = Field(...,
                              description="Descripción de la validación a realizar.")
+    documentation: Optional[str] = Field(...,
+                      description="Nombre de la regla.") 
+
     type: str = Field(...,
                       description="Tipo de regla (estructura, contenido, semántica, etc.).")
-    references: List[str] = Field(...,
-                                  description="Lista de artefactos involucrados.")
+    references: Optional[str] = Field(...,
+                                  description="artefactos o archivos asociados.")
     criticality: str = Field(
         "media", description="Nivel de criticidad (baja, media, alta).")
     explanation: Optional[str] = Field(
