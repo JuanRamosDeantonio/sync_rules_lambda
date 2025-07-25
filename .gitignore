@@ -231,8 +231,6 @@ metrics.log
 local_test_output/
 local_downloads/
 
-# Carpeta de publicación (no se debe versionar)
-publicar/
 
 # ========================================
 # DOCUMENTACIÓN Y ASSETS
