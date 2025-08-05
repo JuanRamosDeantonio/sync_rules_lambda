@@ -14,6 +14,7 @@ class RuleData:
                  references: Optional[str] = None,
                  criticality: str = "media",
                  explanation: Optional[str] = None,
+                 projects: Optional[str] = None,
                  **kwargs):
         """
         Inicializa una regla de validación.
@@ -42,6 +43,7 @@ class RuleData:
         self.references = references
         self.criticality = str(criticality)
         self.explanation = explanation
+        self.projects = projects
         
         # Ignorar campos extra (como documentation del JSON)
         # pero no almacenarlos
@@ -63,7 +65,8 @@ class RuleData:
             "type": self.type,
             "references": self.references,
             "criticality": self.criticality,
-            "explanation": self.explanation
+            "explanation": self.explanation,
+            "projects": self.projects
         }
     
     def dict(self) -> Dict[str, Any]:
